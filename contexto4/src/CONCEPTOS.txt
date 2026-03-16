@@ -46,4 +46,4 @@ Clase Final: La clase AstronautaingBioquimico fue marcada como final, lo que imp
 Método Final: Se incluyó un método final en la clase base para asegurar que su lógica no sea sobrescrita por las clases hijas.
 
 6. Repositorio GitHub
-Enlace: [Pega aquí el link de tu repositorio de GitHub]
+Enlace: [Pega aquí el link de tu repositorio de GitHub]hola
