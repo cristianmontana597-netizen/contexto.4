@@ -1,0 +1,49 @@
+Proyecto: Gestión de Misión Espacial - Contexto 4
+Estudiante: CRISTIAN DANIEL MONTAÑA RODRIGUEZ
+Institución: Politécnico Grancolombiano
+
+1. Herencia y Estructura de Clases
+Supersuperclase: Persona (Clase base de toda la jerarquía).
+
+Subclases: AstronautaEspecialista, Personal, y la clase final AstronautaingBioquimico.
+
+Ubicación: Paquete co.edu.poli.contexto4.modelo.
+
+2. Implementación de Arreglo (Punto 1)
+Descripción: Se definió un arreglo de tipo Persona[] con una capacidad de 5 posiciones.
+
+Ubicación: Clase Principal, línea 20.
+
+Detalle: Se llenaron las primeras 3 posiciones con objetos de diferentes clases (Persona, AstronautaEspecialista, Personal) para demostrar polimorfismo en asignación.
+
+3. Polimorfismo (Punto 2)
+Polimorfismo de Entrada:
+
+Método: identificarTipoObjeto(Persona p)
+
+Ubicación: Clase Principal, al final de la clase.
+
+Explicación: El método recibe un parámetro de tipo Persona (la "p"). Es polimórfico porque puede aceptar cualquier objeto que herede de Persona y utiliza instanceof para detectar su tipo real.
+
+Polimorfismo de Salida:
+
+Método: crearTripulantePolimorfico(String eleccion)
+
+Ubicación: Clase Principal, al final de la clase.
+
+Explicación: El método tiene como tipo de retorno Persona, pero devuelve instancias de AstronautaEspecialista o Personal según el parámetro recibido, aplicando el concepto de Upcasting.
+
+4. Ciclo For-Each y Sobrescritura
+Ubicación: Clase Principal, dentro del método main.
+
+Explicación: Se utiliza un ciclo for-each para recorrer el arreglo de la tripulación. En cada iteración, se llama al método identificarse(), el cual es polimórfico (sobrescrito), ejecutando la lógica específica de cada subclase.
+
+5. Restricciones de Modificadores (Punto 3)
+Atributo Final: Se definió la constante ESPECIE en la clase Persona. Se evidencia en Principal que su valor no puede ser alterado.
+
+Clase Final: La clase AstronautaingBioquimico fue marcada como final, lo que impide que cualquier otra clase herede de ella.
+
+Método Final: Se incluyó un método final en la clase base para asegurar que su lógica no sea sobrescrita por las clases hijas.
+
+6. Repositorio GitHub
+Enlace: [Pega aquí el link de tu repositorio de GitHub]hola

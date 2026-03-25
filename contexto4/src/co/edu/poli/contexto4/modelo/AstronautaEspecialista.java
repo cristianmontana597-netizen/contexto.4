@@ -61,4 +61,11 @@ public class AstronautaEspecialista extends Persona {
 	public void setRango(String rango) {
 		this.rango = rango;
 	}
+
+
+	@Override
+	public String realizarAccionEspecial() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

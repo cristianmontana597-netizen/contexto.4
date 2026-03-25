@@ -21,6 +21,7 @@ public class Personal extends Persona {
 		return especialidad;
         
     }
+   
 
     // Getters y Setters
     public String getEspecialidad() {
@@ -43,4 +44,10 @@ public class Personal extends Persona {
     public String toString() {
         return super.toString()+ "Persona [nombre=" + nombre + "]";
     }
+
+	@Override
+	public String realizarAccionEspecial() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

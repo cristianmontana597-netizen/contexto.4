@@ -1,7 +1,7 @@
 package co.edu.poli.contexto4.modelo;
 
 
-public class Persona {
+public abstract class Persona {
     public static final String ESPECIE = "HUMANO";
 	protected String nombre;
     private String id;
@@ -27,6 +27,7 @@ public class Persona {
    public String identificarse(String id, int edad) {
     	return nombre + id +  edad;
     } 
+   public abstract String realizarAccionEspecial();
    
 
     // Métodos de acceso PÚBLICOS (+)
