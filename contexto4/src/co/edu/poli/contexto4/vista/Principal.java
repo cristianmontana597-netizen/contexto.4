@@ -1,5 +1,5 @@
 package co.edu.poli.contexto4.vista;
-
+import java.util.Arrays;
 import co.edu.poli.contexto4.modelo.AstronautaEspecialista;
 import co.edu.poli.contexto4.modelo.Combustible;
 import co.edu.poli.contexto4.modelo.ContadorRadiacion;
@@ -33,6 +33,8 @@ public class Principal {
         // 4. PROBAR ELIMINAR
         Persona borrada = gestor.eliminar("003");
         System.out.println("Se borró a: " + (borrada != null ? borrada.getNombre() : "Nada"));
-        System.out.println(gestor.leerTodo());
+        
+        
+        System.out.println(Arrays.toString(gestor.leerTodo()));
     }
 }

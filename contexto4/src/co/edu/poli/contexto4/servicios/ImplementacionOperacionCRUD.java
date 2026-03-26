@@ -62,8 +62,12 @@ public class ImplementacionOperacionCRUD implements OperacionCRUD {
         return null;
     }
 
+    
     @Override
     public Persona[] leerTodo() {
-        return baseDeDatos;
+        System.out.println("\n--- LISTADO DE TRIPULACIÓN (Desde el Servicio) ---");
+        
+        
+        return this.baseDeDatos;
     }
 }
