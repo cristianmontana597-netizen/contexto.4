@@ -24,17 +24,17 @@ public class Principal {
         System.out.println(gestor.crear(new AstronautaEspecialista("Pedro", "003", 1 ,1,1,1,1,1,"especialista")));
 
         // 2. PROBAR LEER
-        Persona buscada = gestor.leer("003");
+        Persona buscada = gestor.leer("001");
         System.out.println("Encontrado: " + (buscada != null ? buscada.getNombre() : "No existe"));
 
         // 3. PROBAR ACTUALIZAR
-        System.out.println(gestor.actualizar("001", new AstronautaEspecialista("Juan Modificado", "001", 1 ,1,1,1,1,1,"especialista")));
+        System.out.println(gestor.actualizar("001", new AstronautaEspecialista("Juan nuevo", "001", 1 ,1,1,1,1,1,"especialista")));
 
         // 4. PROBAR ELIMINAR
-        Persona borrada = gestor.eliminar("003");
+        Persona borrada = gestor.eliminar("002");
         System.out.println("Se borró a: " + (borrada != null ? borrada.getNombre() : "Nada"));
         
-        
+        // 5.PROBAR LEERTODO
         System.out.println(Arrays.toString(gestor.leerTodo()));
     }
 }

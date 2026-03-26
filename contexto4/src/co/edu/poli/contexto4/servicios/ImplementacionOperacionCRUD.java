@@ -6,7 +6,7 @@ public class ImplementacionOperacionCRUD implements OperacionCRUD {
     private Persona[] baseDeDatos;
 
     public ImplementacionOperacionCRUD() {
-        // El ejercicio pide tamaño inicial de 2
+        //  Tamaño inicial de 2
         this.baseDeDatos = new Persona[2];
     }
 
@@ -20,10 +20,10 @@ public class ImplementacionOperacionCRUD implements OperacionCRUD {
             }
         }
 
-        // AGREGACIÓN INFINITA: Si llegamos aquí, el arreglo está lleno. Lo agrandamos.
+        // AGREGACIÓN INFINITA
         Persona[] nuevoArreglo = new Persona[baseDeDatos.length + 1];
         System.arraycopy(baseDeDatos, 0, nuevoArreglo, 0, baseDeDatos.length);
-        nuevoArreglo[baseDeDatos.length] = p; // Insertamos al final
+        nuevoArreglo[baseDeDatos.length] = p; 
         baseDeDatos = nuevoArreglo;
         
         return "Arreglo expandido. Objeto guardado.";
@@ -55,7 +55,7 @@ public class ImplementacionOperacionCRUD implements OperacionCRUD {
         for (int i = 0; i < baseDeDatos.length; i++) {
             if (baseDeDatos[i] != null && baseDeDatos[i].getId().equals(id)) {
                 Persona eliminado = baseDeDatos[i];
-                baseDeDatos[i] = null; // Lo "borramos" dejando el espacio en null
+                baseDeDatos[i] = null; 
                 return eliminado;
             }
         }
