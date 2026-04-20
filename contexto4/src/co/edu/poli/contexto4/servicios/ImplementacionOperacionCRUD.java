@@ -103,47 +103,21 @@ public class ImplementacionOperacionCRUD implements OperacionCRUD, OperacionArch
         return this.baseDeDatos;
     }
 
-    /**
-     * Persiste el arreglo de personas en un archivo binario utilizando Serialización.
-     * * @param personas Listado de objetos a guardar.
-     * @param path     Directorio de destino.
-     * @param name     Nombre del archivo binario.
-     * @return "File create!!" si tuvo éxito, o el mensaje de error correspondiente.
-     */
     @Override
-    public String serializar(Persona[] personas, String path, String name) {
-        try {
-            FileOutputStream fos = new FileOutputStream(path + name);
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(personas);
-            oos.close();
-            fos.close();
-            return "File create!!";
-        } catch (IOException ioe) {
-            return "Error file " + ioe.getMessage();
-        }
+    public String serializar(Persona[] personas, String path, String name) throws Exception {
+        java.io.FileOutputStream fos = new java.io.FileOutputStream(path + name);
+        java.io.ObjectOutputStream oos = new java.io.ObjectOutputStream(fos);
+        oos.writeObject(personas);
+        oos.close();
+        return "Archivo guardado exitosamente.";
     }
 
-    /**
-     * Carga y reconstruye el arreglo de personas desde un archivo binario (Deserialización).
-     * * @param path Ruta del archivo.
-     * @param name Nombre del archivo a leer.
-     * @return El arreglo de objetos {@link Persona} recuperado.
-     */
     @Override
-    public Persona[] deserializar(String path, String name) {
-        Persona[] a = null;
-        try {
-            FileInputStream fis = new FileInputStream(path + name);
-            ObjectInputStream ois = new ObjectInputStream(fis);
-
-            a = (Persona[]) ois.readObject();
-
-            ois.close();
-            fis.close();
-        } catch (IOException | ClassNotFoundException e) {
-            System.err.println("Error al cargar datos: " + e.getMessage());
-        }
-        return a;
+    public Persona[] deserializar(String path, String name) throws Exception {
+        java.io.FileInputStream fis = new java.io.FileInputStream(path + name);
+        java.io.ObjectInputStream ois = new java.io.ObjectInputStream(fis);
+        Persona[] recuperado = (Persona[]) ois.readObject();
+        ois.close();
+        return recuperado;
     }
 }

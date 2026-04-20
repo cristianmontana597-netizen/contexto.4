@@ -4,42 +4,16 @@ import java.util.Arrays;
 import java.util.Scanner;
 import co.edu.poli.contexto4.modelo.*;
 import co.edu.poli.contexto4.servicios.ImplementacionOperacionCRUD;
-import co.edu.poli.contexto4.servicios.OperacionCRUD;
+import co.edu.poli.contexto4.servicios.OperacionArchivo;
 
 public class Principal {
     public static void main(String[] args) {
-        // Instanciamos el servicio
-    	ImplementacionOperacionCRUD gestor = new ImplementacionOperacionCRUD();
+        ImplementacionOperacionCRUD gestor = new ImplementacionOperacionCRUD();
         Scanner sc = new Scanner(System.in);
         
-        /**
-
-     // 1. PROBAR CREAR (Agregamos 3 para forzar la expansión del arreglo de 2)
-     System.out.println(gestor.crear(new AstronautaEspecialista("Juan", "001",1 ,1,1,1,1,1,"especialista")));
-     System.out.println(gestor.crear(new Personal("Ana", "002", 1,1,1,1,"")));
-     System.out.println(gestor.crear(new AstronautaEspecialista("Pedro", "003", 1 ,1,1,1,1,1,"especialista")));
-     
-     // 2. PROBAR LEER
-     Persona buscada = gestor.leer("001");
-     System.out.println("Encontrado: " + (buscada != null ? buscada.getNombre() : "No existe"));
-     
-     // 3. PROBAR ACTUALIZAR
-     System.out.println(gestor.actualizar("001", new AstronautaEspecialista("Juan nuevo", "001", 1 ,1,1,1,1,1,"especialista")));
-     
-     // 4. PROBAR ELIMINAR
-     Persona borrada = gestor.eliminar("002");
-     System.out.println("Se borró a: " + (borrada != null ? borrada.getNombre() : "Nada"));
-
-     // 5.PROBAR LEERTODO
-     System.out.println(Arrays.toString(gestor.leerTodo()));
-
-     */
-        
-        // Variables para archivos
         String patch = "";
         String name = "Tripulacion.bin";
-        
-        int opcion;
+        int opcion = 0;
 
         do {
             System.out.println("\n--- MENÚ MISIÓN ESPACIAL ---");
@@ -52,7 +26,16 @@ public class Principal {
             System.out.println("7. Deserializar (Cargar)");
             System.out.println("8. Salir");
             System.out.print("Seleccione: ");
-            opcion = sc.nextInt();
+            
+            try {
+                opcion = sc.nextInt();
+            } catch (Exception e) {
+                System.out.println("¡Error! Debe ingresar un número del 1 al 8.");
+                sc.nextLine(); // Limpiar el buffer
+                opcion = 0;    
+                continue;      
+            }
+            sc.nextLine(); // Limpiar buffer después de un nextInt
 
             switch (opcion) {
                 case 1: // CREAR
@@ -60,40 +43,55 @@ public class Principal {
                     System.out.println("1. Crear Astronauta Especialista");
                     System.out.println("2. Crear Personal de Apoyo");
                     System.out.print("Seleccione tipo: ");
-                    int tipoTripulante = sc.nextInt();
-                    sc.nextLine(); // Limpiar buffer
+                    int tipoTripulante = 0;
+        
+                    try {
+                        tipoTripulante = sc.nextInt(); 
+                    } catch (Exception e) {
+                        System.out.println("¡Error! Solo se permiten números (1 o 2).");
+                        sc.nextLine(); 
+                        break; // Sale del case 1 y vuelve al menú
+                    }
+                    sc.nextLine(); 
 
                     Persona nuevoTripulante = null;
-
                     switch (tipoTripulante) {
                         case 1:
-                            // Valores quemados iniciales
                             nuevoTripulante = new AstronautaEspecialista("S/N", "000", 0, 0, 0, 0, 0, 0, "Especialista");
                             System.out.println("Configurando Astronauta...");
                             break;
                         case 2:
-                            // Valores quemados iniciales
                             nuevoTripulante = new Personal("S/N", "000", 0, 0, 0, 0, "Mantenimiento");
                             System.out.println("Configurando Personal...");
                             break;
                         default:
-                            System.out.println("Opción inválida.");
+                            System.out.println("Opción de tipo inválida.");
                             break;
                     }
 
                     if (nuevoTripulante != null) {
-                        System.out.print("Ingrese el nuevo Nombre: ");
-                        nuevoTripulante.setNombre(sc.nextLine());
-                        System.out.print("Ingrese el nuevo ID: ");
-                        nuevoTripulante.setId(sc.nextLine());
-                        System.out.print("Ingrese la nueva Edad: ");
-                        nuevoTripulante.setEdad(sc.nextInt());
-                        System.out.print("Ingrese el nuevo Peso: ");
-                        nuevoTripulante.setPeso(sc.nextDouble());
-                        System.out.print("Ingrese la nueva Estatura: ");
-                        nuevoTripulante.setAltura(sc.nextDouble());
+                        try {
+                            System.out.print("Ingrese el nuevo Nombre: ");
+                            nuevoTripulante.setNombre(sc.nextLine());
+                            
+                            System.out.print("Ingrese el nuevo ID: ");
+                            nuevoTripulante.setId(sc.nextLine());
+                            
+                            System.out.print("Ingrese Edad: ");
+                            nuevoTripulante.setEdad(sc.nextInt());
+                            
+                            System.out.print("Ingrese el nuevo Peso: ");
+                            nuevoTripulante.setPeso(sc.nextDouble());
+                            
+                            System.out.print("Ingrese la nueva Estatura: ");
+                            nuevoTripulante.setAltura(sc.nextDouble());
+                            sc.nextLine(); // Limpiar buffer final
 
-                        System.out.println(gestor.crear(nuevoTripulante));
+                            System.out.println(gestor.crear(nuevoTripulante));
+                        } catch (Exception e) {
+                            System.out.println("¡Error de datos! Asegúrese de usar números para edad, peso y estatura.");
+                            sc.nextLine(); // Limpiar buffer tras error
+                        }
                     }
                     break;
 
@@ -113,26 +111,33 @@ public class Principal {
                     System.out.println("\n--- MODIFICAR TRIPULANTE POR ID ---");
                     System.out.print("Ingrese el ID a modificar: ");
                     String idMod = sc.next();
-                    sc.nextLine(); // Limpiar buffer
+                    sc.nextLine(); 
 
                     Persona pMod = gestor.leer(idMod);
                     if (pMod != null) {
-                        System.out.println("Editando a: " + pMod.getNombre());
-                        System.out.print("Nuevo Nombre: ");
-                        pMod.setNombre(sc.nextLine());
-                        System.out.print("Nueva Edad: ");
-                        pMod.setEdad(sc.nextInt());
-                        System.out.print("Nuevo Peso: ");
-                        pMod.setPeso(sc.nextDouble());
-                        
-                        System.out.println(gestor.actualizar(idMod, pMod));
+                        try {
+                            System.out.println("Editando a: " + pMod.getNombre());
+                            System.out.print("Nuevo Nombre: ");
+                            pMod.setNombre(sc.nextLine());
+                            
+                            System.out.print("Nueva Edad: ");
+                            pMod.setEdad(sc.nextInt());
+                            
+                            System.out.print("Nuevo Peso: ");
+                            pMod.setPeso(sc.nextDouble());
+                            sc.nextLine(); 
+                            
+                            System.out.println(gestor.actualizar(idMod, pMod));
+                        } catch (Exception e) {
+                            System.out.println("¡Error! Datos numéricos inválidos.");
+                            sc.nextLine();
+                        }
                     } else {
                         System.out.println("ID no encontrado.");
                     }
                     break;
 
                 case 5: // ELIMINAR
-                    System.out.println("\n--- ELIMINAR TRIPULANTE POR ID ---");
                     System.out.print("Ingrese el ID a borrar: ");
                     String idEli = sc.next();
                     Persona eliminado = gestor.eliminar(idEli);
@@ -144,24 +149,27 @@ public class Principal {
                     break;
 
                 case 6: // SERIALIZAR
-                    System.out.println("\n--- GUARDANDO ARCHIVO ---");
-                    Persona[] datosAGuardar = gestor.leerTodo();
-                    System.out.println(gestor.serializar(datosAGuardar, patch, name));
+                    try {
+                        System.out.println("\n--- GUARDANDO ---");
+                        Persona[] lista = gestor.leerTodo();
+                        System.out.println(((OperacionArchivo)gestor).serializar(lista, patch, name));
+                    } catch (Exception e) {
+                        System.out.println("Error al guardar en archivo: " + e.getMessage());
+                    }
                     break;
 
                 case 7: // DESERIALIZAR
-                    System.out.println("\n--- CARGANDO ARCHIVO ---");
-                    Persona[] datosCargados = gestor.deserializar(patch, name);
-                    if (datosCargados != null) {
-                        // Limpiamos o recorremos para cargar al gestor actual
-                        for (Persona p : datosCargados) {
-                            if (p != null) {
-                                gestor.crear(p);
+                    try {
+                        System.out.println("\n--- CARGANDO ---");
+                        Persona[] cargados = ((OperacionArchivo)gestor).deserializar(patch, name);
+                        if (cargados != null) {
+                            for (Persona p : cargados) {
+                                if (p != null) gestor.crear(p);
                             }
+                            System.out.println("Datos cargados en el sistema.");
                         }
-                        System.out.println("Datos recuperados con éxito.");
-                    } else {
-                        System.out.println("El archivo está vacío o no existe.");
+                    } catch (Exception e) {
+                        System.out.println("Error al cargar archivo: " + e.getMessage());
                     }
                     break;
 
@@ -174,5 +182,6 @@ public class Principal {
                     break;
             }
         } while (opcion != 8);
+        sc.close();
     }
 }

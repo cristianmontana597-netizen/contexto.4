@@ -44,20 +44,4 @@ public interface OperacionCRUD {
      */
     public Persona[] leerTodo();
 
-    /**
-     * Guarda los datos en un archivo.
-     * @param estudiantes Arreglo a guardar.
-     * @param path        Ruta del archivo.
-     * @param name        Nombre del archivo.
-     * @return Mensaje de confirmacion.
-     */
-    public String serializar(Persona[] estudiantes, String path, String name);
-
-    /**
-     * Carga los datos desde un archivo.
-     * @param path Ruta del archivo.
-     * @param name Nombre del archivo.
-     * @return Arreglo recuperado.
-     */
-    public Persona[] deserializar(String path, String name);
 }
